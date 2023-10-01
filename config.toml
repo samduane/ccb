@@ -2,9 +2,9 @@
 theme = "hugo-theme-codex" 
 
 # Override these settings with your own
-title = "Sam's Site"
+title = "Calvary Chapel of Boston"
 languageCode = "en-us"
-baseURL = "https://samduane.com/"
+baseURL = "https://calvarychapel.boston/"
 
 # Optional params
 [params]
