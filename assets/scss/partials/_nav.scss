@@ -1,0 +1,125 @@
+@import "burger";
+
+/*Navigation container that holds everything else
+ *Defaults to hamburger menu, @media query for persistent side menu on bigger displays
+ *Webkit necessary for Safari. Apple!!!
+ */
+.nav {
+  position: fixed;
+  background: rgba(255,255,255,0.6);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: $burgerContainerHeight;
+  overflow: hidden;
+  margin: -1px;
+
+  @media screen and (min-width: $medium) {
+    background: $white;
+    height: 100%;
+    visibility: visible;
+    padding-top: 3em;
+    width: $navWidth;
+  }
+
+  > ul {
+    text-align: right;
+    position: absolute;
+    top: 35%;
+    left: 20%;
+    right: 0%;
+
+    @media screen and (min-width: $medium) {
+      top: 7.5%;
+      left: 0%;
+    }
+  }
+}
+
+/*Contains list of anchors within the menu
+ *Begins with display:none to prevent access from hamburger bar when invisible
+ *@media queries for side menu padding and text alignment on bigger displays
+ **/
+.nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 50%;
+  display: none;
+
+  @media screen and (min-width: $medium) {
+    width: auto;
+    display: block;
+  }
+
+  li {
+    margin-bottom: 3em;
+    line-height: 1.5em;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    @media screen and (min-width: $medium) {
+      margin-bottom: 1.75em;
+    }
+  }
+
+  a {
+    color: $darkGrey;
+    text-decoration: none;
+    font-size: 2em;
+
+    @media screen and (min-width: $medium) {
+      font-size: 1em;
+    }
+
+    &:hover {
+        text-decoration: underline;
+        color: $darkGrey;
+    }
+
+    &.active {
+        color: $black;
+        font-style: italic;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+  }
+}
+
+/*Uses checkbox status for activation rather than JS. Yay!
+ *This is the actual menu presented on clicking
+ *@media query to adjust width when in side menu on larger displays
+ *animation-fill forwards needed for proper fade. Otherwise, does reverse fade first.
+ */
+#burger:checked ~ .nav {
+  height: 100%;
+  animation: fade__bg;
+  animation-duration: 700ms;
+  animation-fill-mode: forwards;
+  margin-bottom: 0;
+  .nav__list {
+    display: block;
+    animation: fade__list;
+    animation-duration: 500ms;
+  }
+
+  @media screen and (min-width: $medium) {
+    width: $navWidth;
+    transition: none;
+  }
+}
+
+@keyframes fade__bg {
+  from {background: transparent;}
+  to {background: rgba(238,238,238,0.7);}
+}
+
+@keyframes fade__list {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}

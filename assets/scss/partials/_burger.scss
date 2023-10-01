@@ -1,0 +1,94 @@
+/*Container for burger menu and navigation
+ *@media query adjusts to side menu for large displays
+ *Must have z-index: 2, or headers will display through menu
+ **/
+.burger__container {
+  height: $burgerContainerHeight;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  padding: 0 1.5rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+
+  @media screen and (min-width: $medium) {
+    display: block;
+    height: 100%;
+    visibility: visible;
+    padding-top: 3em;
+    width: $navWidth;
+    background: $white;
+  }
+}
+
+.burger {
+  position: relative;
+  width: $meatWidth;
+  height: $meatWidth;
+  cursor: pointer;
+
+  @media screen and (min-width: $medium) {
+    display: none;
+  }
+}
+
+/*Actual burger button
+ *Base class is the container
+ *Numbered classes(.burger__meat--N) for each bar of menu
+ **/
+.burger__meat {
+  position: absolute;
+  width: $meatWidth;
+  height: $meatHeight;
+  background: $darkGrey;
+  top: calc(50% - #{$meatHeight} / 2);
+  left: calc(50% - #{$meatWidth} / 2);
+  transition: all 150ms ease-in;
+}
+
+.burger__meat--1 {
+  transform: translateY(-10px);
+}
+
+.burger__meat--2 {
+  width: calc(#{$meatWidth} - 6px);
+}
+
+.burger__meat--3 {
+  transform: translateY(10px);
+}
+
+/*Checkbox and form used for burger button
+ *Must have z-index: 1, or will disappear
+ **/
+#burger + label {
+  z-index: 1;
+}
+
+/*Animation for opening and closing menu*/
+#burger:checked + label {
+
+  .burger__meat--1 {
+  transform: rotate(45deg);
+  }
+
+  .burger__meat--2 {
+  opacity: 0;
+  }
+
+  .burger__meat--3 {
+  transform: rotate(-45deg);
+  }
+}
+
+#burger__header {
+  z-index: 2;
+  margin-right: auto;
+  color: $darkGrey;
+  @media screen and (min-width: $medium) {
+  display:none;
+  }
+}
